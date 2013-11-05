@@ -36,7 +36,10 @@ class DataHandler:
 
 	def getRandomHTTPS(self):
 		row = self.getRow("SELECT id, ip_address FROM ip_queue WHERE in_use IS FALSE AND port = 443 ORDER BY RAND() LIMIT 1")
-		self.conn.Execute("UPDATE ip_queue SET in_use = TRUE WHERE id = "+str(row['id']))
+		if row:
+			self.conn.Execute("UPDATE ip_queue SET in_use = TRUE WHERE id = "+str(row['id']))
+		else:
+			return ""
 
 		return row['ip_address']
 	

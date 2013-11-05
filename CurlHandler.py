@@ -9,8 +9,8 @@ class CurlHandler:
 
 		c = pycurl.Curl()
 		
-		#try:
-		if 1==1:
+		try:
+		#if 1==1:
 			c.setopt(c.URL, 'https://'+ip_address)
 			buf = cStringIO.StringIO()
 			c.setopt(c.WRITEFUNCTION, buf.write)
@@ -23,6 +23,7 @@ class CurlHandler:
 			response = buf.getvalue()
 			buf.close()
 			#print response
+			response = response.replace("'","''")
 			return response
-		#except:
-		#	return ''
+		except:
+			return ''
