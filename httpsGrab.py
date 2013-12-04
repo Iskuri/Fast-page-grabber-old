@@ -11,6 +11,8 @@ while True:
 
 		if ip == "":
 			print "Could not find any ips that need processing"
+			for x in range(0,1000):
+				dataHandler.addRandomIp(443)
 			sys.exit()
 
 		print "Processing "+ip

@@ -3,6 +3,8 @@ import sys
 
 handler = DataHandler()
 
+#handler.addRandomIp(443)
+
 for line in sys.stdin:
 
 	line = line.replace("\n","")

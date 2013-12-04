@@ -1,4 +1,5 @@
 import adodb
+from random import randint
 
 class DataHandler:
 
@@ -18,7 +19,12 @@ class DataHandler:
 			return {}
 
 		return cursor.GetRowAssoc(0)
-	
+
+	def addRandomIp(self, port):
+		randomIp = str(randint(0, 255))+"."+str(randint(0, 255))+"."+str(randint(0, 255))+"."+str(randint(0, 255))
+		print randomIp
+		self.addIp(randomIp,port)
+
 	def addIp(self, ip_address, port):
 
 		if not self.getRow("SELECT * FROM ip_queue WHERE ip_address = '"+ip_address+"' AND port = "+str(port)):
@@ -35,6 +41,8 @@ class DataHandler:
 		return row['id']
 
 	def getRandomHTTPS(self):
+		#row = self.getRow("SELECT id, ip_address FROM ip_queue WHERE in_use IS FALSE AND port = 443 ORDER BY id DESC LIMIT 1")
+		#row = self.getRow("SELECT id, ip_address FROM ip_queue WHERE in_use IS FALSE AND port = 443 AND ip_address LIKE '195.50%' ORDER BY id DESC LIMIT 1")
 		row = self.getRow("SELECT id, ip_address FROM ip_queue WHERE in_use IS FALSE AND port = 443 ORDER BY RAND() LIMIT 1")
 		if row:
 			self.conn.Execute("UPDATE ip_queue SET in_use = TRUE WHERE id = "+str(row['id']))
