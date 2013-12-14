@@ -30,7 +30,8 @@ class DataHandler:
 		if not self.getRow("SELECT * FROM ip_queue WHERE ip_address = '"+ip_address+"' AND port = "+str(port)):
 			if not self.getRow("SELECT * FROM processed_ips i JOIN banners b ON b.ip_address_id = i.id WHERE ip_address = '"+ip_address+"' AND port = "+str(port)):
 			#if not self.getRow("SELECT * FROM processed_ips i WHERE ip_address = '"+ip_address+"'"):
-				self.conn.Execute("INSERT INTO ip_queue(ip_address,port) VALUES ('"+ip_address+"', "+str(port)+");")
+				#self.conn.Execute("INSERT INTO ip_queue(ip_address,port) VALUES ('"+ip_address+"', "+str(port)+");")
+				self.conn.Execute("INSERT DELAYED INTO ip_queue(ip_address,port) VALUES ('"+ip_address+"', "+str(port)+");")
 
 	def getProcessedIpId(self, ip_address):
 		row = self.getRow("SELECT * FROM processed_ips WHERE ip_address = '"+ip_address+"'")
