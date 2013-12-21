@@ -27,11 +27,15 @@ class DataHandler:
 
 	def addIp(self, ip_address, port):
 
-		if not self.getRow("SELECT * FROM ip_queue WHERE ip_address = '"+ip_address+"' AND port = "+str(port)):
-			if not self.getRow("SELECT * FROM processed_ips i JOIN banners b ON b.ip_address_id = i.id WHERE ip_address = '"+ip_address+"' AND port = "+str(port)):
+		#print "Running ip_queue query"
+		if not self.getRow("SELECT * FROM ip_queue WHERE ip_address = '"+ip_address+"' AND port = "+str(port)+" LIMIT 1"):
+			#print "running processed_ips query"
+			if not self.getRow("SELECT * FROM processed_ips i JOIN banners b ON b.ip_address_id = i.id WHERE ip_address = '"+ip_address+"' AND port = "+str(port)+" LIMIT 1"):
 			#if not self.getRow("SELECT * FROM processed_ips i WHERE ip_address = '"+ip_address+"'"):
 				#self.conn.Execute("INSERT INTO ip_queue(ip_address,port) VALUES ('"+ip_address+"', "+str(port)+");")
+				#print "inserting ip"
 				self.conn.Execute("INSERT DELAYED INTO ip_queue(ip_address,port) VALUES ('"+ip_address+"', "+str(port)+");")
+				#print "done"
 
 	def getProcessedIpId(self, ip_address):
 		row = self.getRow("SELECT * FROM processed_ips WHERE ip_address = '"+ip_address+"'")
