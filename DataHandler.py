@@ -8,7 +8,7 @@ class DataHandler:
 	def __init__(self):
 	
 		self.conn = adodb.NewADOConnection('mysql')
-		self.conn.Connect('192.168.1.95','root','disappointed1','banner_quickscan')
+		self.conn.Connect('192.168.1.95','root','root','banner_quickscan')
 		
 
 	def getRow(self, query):
