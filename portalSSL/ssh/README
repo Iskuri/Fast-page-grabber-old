@@ -1,8 +1,0 @@
-WARNING!!
-
-Do not manually change the files in this directory!
-The ssh keys in this directory are generated at first boot and are unique
-to your machine.
-These keys are needed for communication with the SCCP.
-
-To generate new keys, please run `keyswap.sh sccp`.
